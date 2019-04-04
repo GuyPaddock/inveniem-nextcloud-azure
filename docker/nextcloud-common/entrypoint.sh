@@ -290,12 +290,6 @@ update_htaccess() {
     run_as "php /var/www/html/occ maintenance:update:htaccess"
 }
 
-start_log_capture() {
-    touch /var/log/nextcloud.log
-    chown www-data:root /var/log/nextcloud.log
-    tail -F /var/log/nextcloud.log &
-}
-
 # version_greater A B returns whether A > B
 version_greater() {
     [ "$(printf '%s\n' "$@" | sort -t '.' -n -k1,1 -k2,2 -k3,3 -k4,4 | head -n 1)" != "$1" ]
@@ -334,6 +328,5 @@ run_as() {
 
 container_type="${1:-none}"
 initialize_container "${container_type}"
-start_log_capture
 
 exec "$@"
