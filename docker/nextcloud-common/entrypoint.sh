@@ -85,10 +85,12 @@ setup_redis() {
     {
         echo 'session.save_handler = redis'
         echo "session.save_path = \"tcp://${REDIS_HOST}:${REDIS_PORT}${REDIS_QUERY_STRING}\""
+        echo 'session.lazy_write = 0'
         echo ''
-        echo 'redis.session.locking_enabled = 1'
-        echo 'redis.session.lock_wait_time = 25000'
-        echo 'redis.session.lock_retries = 4000'
+#        echo 'redis.session.lock_expire = 60'
+        echo 'redis.session.locking_enabled = 0'
+#        echo 'redis.session.lock_wait_time = 100'
+#        echo 'redis.session.lock_retries = 50'
     } > /usr/local/etc/php/conf.d/redis-sessions.ini
 }
 
